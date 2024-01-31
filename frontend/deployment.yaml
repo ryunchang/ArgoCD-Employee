@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
       - name: frontend-vuejs
-        image: ghcr.io/ryunchang/vue_crud_security:v1.0.4
+        image: ghcr.io/shclub/vue3:v1
+        # image: ghcr.io/ryunchang/vue_crud_security:v1.0.4
         imagePullPolicy: Always
         ports:
         - containerPort: 80
