@@ -33,7 +33,7 @@ spec:
   strategy:
     blueGreen: 
       #activeService는 이전의 배포된 Blue 서비스
-      activeService: frontend-service
+      activeService: frontend-service-active
       
       #previewService는 새롭게 배포될 Green 서비스
       previewService: frontend-service-preview
