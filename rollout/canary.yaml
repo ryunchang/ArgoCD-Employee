@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: canary-rollout
+spec:
+  replicas: 4
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: canary
+  template:
+    metadata:
+      labels:
+        app: canary
+    spec:
+      containers:
+      - name: frontend-vuejs
+        image: ghcr.io/ryunchang/vue_crud_security:v1.0.5
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+  strategy:
+    canary:
+      maxSurge: "25%"
+      maxUnavailable: 0
+      steps:
+      - setWeight: 25
+      - pause: {}
+---
+apiVersion: v1	
+kind: Service	
+metadata:	
+  name: frontend-service-active
+  labels:
+    app: canary
+spec:	
+  ports:	
+  - port: 80	
+    targetPort: 80
+    name: http
+  selector:	
+    app: canary
+  type: NodePort
