@@ -24,7 +24,6 @@ spec:
         - containerPort: 80
       # containers:
       # - name: rollouts-demo
-      #   image: ghc
       #   image: argoproj/rollouts-demo:blue
       #   #image: argoproj/rollouts-demo:green
       #   imagePullPolicy: Always
@@ -45,7 +44,7 @@ spec:
 apiVersion: v1	
 kind: Service	
 metadata:	
-  name: frontend-service
+  name: frontend-service-active
   labels:
     app: rollout-bluegreen
 spec:	
@@ -56,28 +55,19 @@ spec:
   selector:	
     app: rollout-bluegreen
   type: NodePort
-# kind: Service
-# apiVersion: v1
-# metadata:
-#   name: frontend-active
-# spec:
-#   selector:
-#     app: rollout-bluegreen
-#   ports:
-#   - protocol: TCP
-#     port: 80
-#     targetPort: 8080
-#   type: NodePort
+
 ---
 kind: Service
 apiVersion: v1
 metadata:
   name: frontend-service-preview
+  labels:
+    app: rollout-bluegreen
 spec:
   selector:
     app: rollout-bluegreen
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 8080
+    targetPort: 80
   type: NodePort
